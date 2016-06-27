@@ -1,12 +1,13 @@
+# from urllib.parse import urlparse
+# o = urlparse('http://swapi.co/api/people/4/')
+# print(o)
 
-import requests
-
-# url = "http://swapi.co/api/films/7/"
-# response = requests.request("GET", url).json()
-# print(response)
+# uid = filter(str.isdigit, u)
+# uid = (list(filter(str.isdigit, u)))
+# print((uid))
 
 
-detail_choice = int(input("What item do you want to see the deatils for: "))
-url = "http://swapi.co/api/people/{}/".format(detail_choice)
-response = requests.get(url).json()
-print(response['name'])
+import re
+
+u = "http://swapi.co/api/people/41/"
+print(int((re.findall("\d+", u)[0])))
