@@ -1,13 +1,28 @@
 import requests
 
-# url = "http://swapi.co/api/people/"
-# response = requests.get(url).json()
-# print(response)
 
-# url = "http://swapi.co/api/people/"
-# response = requests.get(url).json()
-# for item in response['results']:
-#     print(item['name'])
+def print_results(response, dict_key, number):
+    for number, item in enumerate(response['results'], number):
+        print(number, item[dict_key])
+        number += 10
+
+
+def call_swapi(data):
+    number = 1  # start the list with 1
+    url, dict_key = data
+    response = requests.get(url).json()
+    if response['next']:
+        print_results(response, dict_key, number)
+        while response['next']:
+            more = input("Do you want to see more? Y/n \n").lower()
+            if more != "n":
+                url = response['next']
+                response = requests.get(url).json()
+                print_results(response, dict_key, number)
+            else:
+                exit()
+    else:
+        print_results(response, dict_key)
 
 choice = int(input("""
 Star Wars
@@ -16,20 +31,10 @@ Star Wars
 3: Vehicles
 """))
 
-if choice == 1:
-    url = "http://swapi.co/api/people/"
-    response = requests.get(url).json()
-    for item in response['results']:
-        print(item['name'])
+choice_dict = {
+1: ["http://swapi.co/api/people/", "name"],
+2: ["http://swapi.co/api/films/", "title"],
+3: ["http://swapi.co/api/vehicles/", "name"],
+}
 
-if choice == 2:
-    url = "http://swapi.co/api/films/"
-    response = requests.get(url).json()
-    for item in response['results']:
-        print(item['title'])
-
-if choice == 3:
-    url = "http://swapi.co/api/vehicles/"
-    response = requests.get(url).json()
-    for item in response['results']:
-        print(item['name'])
+call_swapi(choice_dict[choice])
