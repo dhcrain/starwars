@@ -4,8 +4,7 @@ import requests
 def print_results(response, dict_key, number):
     for number, item in enumerate(response['results'], number):
         print(number, item[dict_key])
-        number += 10
-
+        
 
 def call_swapi(data):
     number = 1  # start the list with 1
@@ -13,16 +12,18 @@ def call_swapi(data):
     response = requests.get(url).json()
     if response['next']:
         print_results(response, dict_key, number)
+        number += 10
         while response['next']:
             more = input("Do you want to see more? Y/n \n").lower()
             if more != "n":
                 url = response['next']
                 response = requests.get(url).json()
                 print_results(response, dict_key, number)
+                number += 10
             else:
                 exit()
     else:
-        print_results(response, dict_key)
+        print_results(response, dict_key, number)
 
 choice = int(input("""
 Star Wars
