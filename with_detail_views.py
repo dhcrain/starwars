@@ -22,18 +22,26 @@ def call_swapi(data):
                 exit()
 
 choice = int(input("""
-Star Wars
-1: Characters
-2: Films
-3: Vehicles
-================================================
-To see more details about an item get the number
-from looking at the lists in 1, 2, and 3.
-------------------------------------------------
-4: Character Detail
-5: Film Detail
-6: Vehicle Detail
-7: QUIT
+         d888888888888888888  d8888b    8888888888b
+         Y888888888888888888 d88PY88b   88888888888b
+          Y888b    88888    ,88P  Y88.  888R    X88P
+           Y888b   88888    d88'  `88b  8888bood88P
+   8888888888888b  88888   ,8888888888. 8888PY88888888888
+   8888888888888P  88888   888P    Y888 8888  Y8888888888
+   Y88b   d88b   d88P  d8888b    8888888888b  d8888888888
+   `888b d8888b d888' d88PY88b   88888888888b Y8888888888
+    Y888V888888V888P ,88P  Y88.  888R    X88P  Y888b
+    `888888PY888888' d88'  `88b  8888bood88P    Y888b
+     Y8888P  Y8888P ,8888888888. 8888PY8SSt&cgmm88888b
+      Y88P    Y88P  888P    Y888 8888  Y8888888888888P
+===============================================================
+1: Characters       |   * To see more details about an item,
+2: Films            |     get the index number from looking
+3: Vehicles         |     at the lists in options 1, 2, & 3.
+---------------------------------------------------------------
+4: Character Detail             6: Vehicle Detail
+5: Film Detail                  7: QUIT
+===============================================================
 """))
 
 if choice == 7:
