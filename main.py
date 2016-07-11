@@ -1,5 +1,8 @@
 import requests
 import re
+import time
+from playsound import playsound
+
 
 def print_results(response, dict_key):
     for item in response['results']:
@@ -13,6 +16,7 @@ def print_details(response, responce_key1, response_key2):
             response = requests.get(item).json()
             print("-", response[response_key2])
 
+
 def call_swapi(data):
     url, dict_key = data
     response = requests.get(url).json()
@@ -25,7 +29,11 @@ def call_swapi(data):
                 response = requests.get(url).json()
                 print_results(response, dict_key)
             else:
+                # url = ""
+                # dict_key = 0
+                # response = 0
                 welcome()
+                break
 
 def welcome():
     choice = int(input("""
@@ -41,7 +49,7 @@ def welcome():
 
     if choice == 7:
         exit()
-    if choice == 4:
+    elif choice == 4:
         detail_pk = int(input("Enter item number to see details: "))
         url = "http://swapi.co/api/people/{}/".format(detail_pk)
         response = requests.get(url).json()
@@ -67,7 +75,7 @@ def welcome():
         print("Starships:")
         print_details(response, responce_key1, response_key2)
         welcome()
-    if choice == 5:
+    elif choice == 5:
         detail_pk = int(input("Enter item number to see details: "))
         url = "http://swapi.co/api/films/{}/".format(detail_pk)
         response = requests.get(url).json()
@@ -76,10 +84,14 @@ Film Title: {}
 Release Date: {}
 Episode ID: {}
 Director: {}
-Opening: \n\n{}
-        """.format(response['title'], response['release_date'], response['episode_id'], response['director'], response['opening_crawl']))
+Opening:
+        """.format(response['title'], response['release_date'], response['episode_id'], response['director']))
+        playsound("Star_Wars.mp3")
+        for line in response['opening_crawl'].split("\n"):
+            print(line)
+            time.sleep(.15)
         welcome()
-    if choice == 6:
+    elif choice == 6:
         detail_pk = int(input("Enter item number to see details: "))
         url = "http://swapi.co/api/vehicles/{}/".format(detail_pk)
         response = requests.get(url).json()
@@ -94,7 +106,7 @@ Max Atmosphering Speed: {}""".format(response['name'], response['model'], respon
         print("Films: ")
         print_details(response, responce_key1, response_key2)
         welcome()
-    if choice in [1, 2, 3]:
+    elif choice in [1, 2, 3]:
         choice_dict = {
         1: ["http://swapi.co/api/people/", "name"],
         2: ["http://swapi.co/api/films/", "title"],
@@ -102,7 +114,7 @@ Max Atmosphering Speed: {}""".format(response['name'], response['model'], respon
         }
         call_swapi(choice_dict[choice])
 
-
+# http://www.pc-freak.net/ascii-art-pictures/star-wars/starwars_title.txt
 print('''
      d888888888888888888  d8888b    8888888888b
      Y888888888888888888 d88PY88b   88888888888b
