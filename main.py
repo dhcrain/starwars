@@ -1,7 +1,10 @@
 import requests
 import re
 import time
-from playsound import playsound
+import subprocess
+# import os
+# import multiprocessing
+
 
 
 def print_results(response, dict_key):
@@ -86,10 +89,12 @@ Episode ID: {}
 Director: {}
 Opening:
         """.format(response['title'], response['release_date'], response['episode_id'], response['director']))
-        playsound("Star_Wars.mp3")
+
+        audio_file = "short_star_wars_b.mp3"
+        return_code = subprocess.call(["afplay", audio_file])
         for line in response['opening_crawl'].split("\n"):
             print(line)
-            time.sleep(.15)
+            time.sleep(.35)
         welcome()
     elif choice == 6:
         detail_pk = int(input("Enter item number to see details: "))
