@@ -89,9 +89,11 @@ Episode ID: {}
 Director: {}
 Opening:
         """.format(response['title'], response['release_date'], response['episode_id'], response['director']))
+        # play theme song
 
         audio_file = "short_star_wars_b.mp3"
-        return_code = subprocess.call(["afplay", audio_file])
+        return_code = subprocess.Popen(["afplay", audio_file])
+        # scroll opening crawl
         for line in response['opening_crawl'].split("\n"):
             print(line)
             time.sleep(.35)
