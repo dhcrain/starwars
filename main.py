@@ -6,12 +6,12 @@ import subprocess
 # import multiprocessing
 
 
-
 def print_results(response, dict_key):
     for item in response['results']:
         # get the number out of the URL, http://stackoverflow.com/questions/26825729/extract-number-from-string-python
         item_url = int(re.findall("\d+", item['url'])[0])
         print("{}: {}".format(item_url, item[dict_key]))
+
 
 def print_details(response, responce_key1, response_key2):
     if response[responce_key1]:
@@ -32,11 +32,9 @@ def call_swapi(data):
                 response = requests.get(url).json()
                 print_results(response, dict_key)
             else:
-                # url = ""
-                # dict_key = 0
-                # response = 0
                 welcome()
                 break
+
 
 def welcome():
     choice = int(input("""
@@ -89,14 +87,15 @@ Episode ID: {}
 Director: {}
 Opening:
         """.format(response['title'], response['release_date'], response['episode_id'], response['director']))
-        # play theme song
 
+        # play theme song
         audio_file = "short_star_wars_b.mp3"
-        return_code = subprocess.Popen(["afplay", audio_file])
+        subprocess.Popen(["afplay", audio_file])
+
         # scroll opening crawl
         for line in response['opening_crawl'].split("\n"):
             print(line)
-            time.sleep(.35)
+            time.sleep(.45)
         welcome()
     elif choice == 6:
         detail_pk = int(input("Enter item number to see details: "))
@@ -115,9 +114,9 @@ Max Atmosphering Speed: {}""".format(response['name'], response['model'], respon
         welcome()
     elif choice in [1, 2, 3]:
         choice_dict = {
-        1: ["http://swapi.co/api/people/", "name"],
-        2: ["http://swapi.co/api/films/", "title"],
-        3: ["http://swapi.co/api/vehicles/", "name"],
+            1: ["http://swapi.co/api/people/", "name"],
+            2: ["http://swapi.co/api/films/", "title"],
+            3: ["http://swapi.co/api/vehicles/", "name"],
         }
         call_swapi(choice_dict[choice])
 
