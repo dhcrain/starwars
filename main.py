@@ -58,7 +58,7 @@ def welcome():
         # films
         responce_key1 = 'films'
         response_key2 = 'title'
-        print("-Films:")
+        print("Films:")
         print_details(response, responce_key1, response_key2)
         # Species
         responce_key1 = 'species'
